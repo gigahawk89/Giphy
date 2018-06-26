@@ -23,7 +23,7 @@
 
         var topics = ["Oakland Raiders", "San Dieogo Chargers", "Kansas City Chiefs", "Denver Broncos"]
         for (var i = 0; i < topics.length; i++) {
-            var buttons = $(`<button data-value="oaklandraiders">`).html(topics[i]);
+            var buttons = $(`<button data-value="${topics[i]}">`).html(topics[i]);
                 
             $(".buttons").append(buttons);
             console.log("" + topics[i]);
