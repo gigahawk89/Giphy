@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <h2 class="tittle">Pick a Giph or input your own</h2>
+    </div>
+    <div class="buttons">
+
+    </div>
+    <div id="gifs-appear-here">
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        var topics = ["Oakland Raiders", "San Dieogo Chargers", "Kansas City Chiefs", "Denver Broncos"]
+        for (var i = 0; i < topics.length; i++) {
+            var buttons = $(`<button data-value="oaklandraiders">`).html(topics[i]);
+                
+            $(".buttons").append(buttons);
+            console.log("" + topics[i]);
+        }
+        console.log(buttons)
+        $("button").on("click", function () {
+           // var value = $(this).attr("value-data")
+            var teams = $(this).attr("data-value");
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+                teams + "&api_key=v0U3kizFxuy70NAHSp5yTxWE7HaGCTPK&limit=10";
+            console.log(teams)
+
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function (response) {
+                console.log(response);
+                var results = response.data
+                for (var i = 0; i < results.length; i++) {
+                    var gyphDiv = $("<div>")
+                    var p = $("<p>").html("rating: " + results[i].rating)
+                    var teamImage = $("<img>").attr("src", results[i].images.fixed_height.url)
+                    gyphDiv.append(p)
+                    gyphDiv.append(teamImage)
+                    $("#gifs-appear-here").prepend(gyphDiv)
+                    console.log(p)
+                }
+            })
+        })
+
+    </script>
+</body>
+
+</html>
